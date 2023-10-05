@@ -1,0 +1,51 @@
+A. Functional Requirements of the project: 
+  1 Create/update supplier for Procurement Service
+  2 Create/update supplier contact for Procurement Service
+  3 Look up supplier basic info and contact for Procurement Service
+  4 Create/update part/product for Inventory Service
+  5 Look up all parts by product for Inventory Service
+  6 Look up supplier by part for Procurement-Inventory Service
+  7 Create sale for Sales Service
+  8 Look up products info by sale for Sales Service
+  9 Look up sales by store for Sales Service
+  10 Report sales data (at real time) for BI Service
+
+1. Setup Apache Kafka:
+a) install Kafka 2.13-2.8.0
+    ->Open cmd prompt
+    ->Navigate to Apache Kafka install directory (recommended C:/)
+b) cd c:/kafka
+c) Run the following to start zookeeper:
+    ->.\bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+d) Repeat steps a and b on a new CMD window
+e) Run the following to start the kafka broker:
+    ->.\bin\windows\kafka-server-start.bat config\server.properties
+f. Repeat steps a and b on a new CMD window
+2. Run the microservices:
+Repeat the below steps for the following services, launching them in the following order;
+    ● Procurement Service
+    ● Inventory Service
+    ● Sales Service
+    ● BI Service
+    Note: before running the BI service, please see the following Note section relating to BI
+    service test data.
+3. Requirements:
+● Java 1.8
+● Maven
+4. CLI Instructions:
+a) Open a Command Prompt or Terminal window in the base project folder and enter
+the following commands:
+    -> mvn clean
+    -> mvn install
+    -> cd target
+    -> java -jar MercuryCyclists-0.0.1-SNAPSHOT.jar
+
+Note: BI Service Test Data
+Currently the BI service has been set up with a command line runner that is launched when
+the application has been run. This will first send a request to the inventory service to create
+three products. Then it will continue to request the sales service to create a sale every two
+seconds.
+To ensure the application launches with test data, we must first ensure that Kafka is running,
+as well as the inventory and Sales services.
+If you would not like to create test data, comment out the command line runner functionality
+when launching the BI service.
